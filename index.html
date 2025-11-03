@@ -3,37 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KuroToon - อ่านการ์ตูนฟรี</title>
+    <title>ZeroManga - อ่านการ์ตูนออนไลน์ฟรี มังงะ มันฮวา มันฮัว อัปเดตใหม่ทุกวัน</title>
     <style>
-        :root {
-            --bg: #121212;
-            --text: #ffffff;
-            --card: #1e1e1e;
-            --accent: #ffd700;
-        }
-        [data-theme="light"] {
-            --bg: #ffffff;
-            --text: #000000;
-            --card: #f5f5f5;
-            --accent: #ff6b35;
-        }
+        /* ธีมล็อกเหลืองทองถาวร */
         body {
             font-family: Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: #fff;
             margin: 0;
             padding: 0;
             line-height: 1.6;
         }
+        :root {
+            --accent: #FFD700; /* ทอง */
+            --bg: #1a1a1a;
+            --text: #fff;
+            --card: #222;
+            --border: #FFA500; /* ส้ม */
+        }
         header {
-            background: linear-gradient(#333, var(--bg));
+            background: linear-gradient(to right, var(--bg), #333);
             padding: 1rem;
             text-align: center;
+            box-shadow: 0 2px 10px rgba(255,215,0,0.3);
         }
         header h1 {
             margin: 0;
             color: var(--accent);
-            font-size: 2.2rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        header p {
+            margin: 0.5rem 0;
+            color: #ccc;
+            font-size: 1rem;
         }
         nav {
             display: flex;
@@ -42,7 +45,7 @@
             margin: 1rem 0;
             flex-wrap: wrap;
         }
-        nav a, nav button {
+        nav a {
             padding: 0.5rem 1rem;
             background: var(--card);
             color: var(--text);
@@ -51,15 +54,28 @@
             border-radius: 5px;
             font-size: 0.9rem;
         }
-        nav button {
-            background: none;
-            border: 1px solid var(--accent);
-            color: var(--accent);
+        nav a:hover {
+            background: var(--accent);
+            color: #000;
+        }
+        .search {
+            padding: 0.6rem;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 5px;
+            border: 2px solid var(--accent);
+            margin: 1rem auto;
+            display: block;
+            background: #333;
+            color: var(--text);
         }
         main {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
+        }
+        section {
+            margin-bottom: 3rem;
         }
         section h2 {
             color: var(--accent);
@@ -69,17 +85,20 @@
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
         }
         .card {
             background: var(--card);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(255,215,0,0.2);
+            transition: transform 0.2s;
+            border: 1px solid var(--border);
         }
-        .card:hover { transform: scale(1.03); }
+        .card:hover {
+            transform: scale(1.02);
+        }
         .card img {
             width: 100%;
             height: 220px;
@@ -98,11 +117,10 @@
             margin: 0;
             color: #ccc;
         }
-        [data-theme="light"] .card p { color: #666; }
         .flag {
             background: #e91e63;
             color: white;
-            padding: 0.1rem 0.4rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 3px;
             font-size: 0.7rem;
             float: right;
@@ -112,43 +130,35 @@
             padding: 1.5rem;
             background: #333;
             margin-top: 3rem;
+            color: #ccc;
             font-size: 0.8rem;
+            border-top: 2px solid var(--accent);
         }
-        .search {
-            padding: 0.6rem;
-            width: 80%;
-            max-width: 300px;
-            border-radius: 5px;
-            border: 1px solid var(--accent);
-            margin: 1rem auto;
-            display: block;
-        }
-        @media (max-width: 480px) {
-            header h1 { font-size: 1.8rem; }
-            .grid { grid-template-columns: 1fr 1fr; }
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            header h1 { font-size: 2rem; }
         }
     </style>
 </head>
-<body data-theme="dark">
+<body>
     <header>
-        <h1>KuroToon</h1>
-        <p>อ่านการ์ตูนฟรี มังงะ มันฮวา มันฮัว</p>
+        <h1>ZeroManga</h1>
+        <p>อ่านการ์ตูนออนไลน์ฟรี มังงะ มันฮวา มันฮัว อัปเดตใหม่ทุกวัน</p>
         <input type="search" class="search" placeholder="ค้นหาการ์ตูน...">
         <nav>
             <a href="#">หน้าแรก</a>
             <a href="#">มังงะ</a>
             <a href="#">มันฮวา</a>
             <a href="#">มันฮัว</a>
-            <button onclick="toggle()">เปลี่ยนธีม</button>
         </nav>
     </header>
 
     <main>
         <section>
-            <h2>การ์ตูนมาใหม่</h2>
+            <h2>การ์ตูนใหม่มาแรง</h2>
             <div class="grid">
                 <div class="card">
-                    <img src="https://via.placeholder.com/200x250/333/fff?text=มังงะ1" alt="">
+                    <img src="https://via.placeholder.com/180x220/333/fff?text=Zero+1" alt="Zero 1">
                     <div class="card-content">
                         <span class="flag">Manhwa</span>
                         <h3>Critical Point</h3>
@@ -156,7 +166,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="https://via.placeholder.com/200x250/444/fff?text=มังงะ2" alt="">
+                    <img src="https://via.placeholder.com/180x220/444/fff?text=Zero+2" alt="Zero 2">
                     <div class="card-content">
                         <span class="flag">Manga</span>
                         <h3>ชื่อเรื่อง 2</h3>
@@ -164,7 +174,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="https://via.placeholder.com/200x250/555/fff?text=มังงะ3" alt="">
+                    <img src="https://via.placeholder.com/180x220/555/fff?text=Zero+3" alt="Zero 3">
                     <div class="card-content">
                         <span class="flag">Manhua</span>
                         <h3>ชื่อเรื่อง 3</h3>
@@ -172,7 +182,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="https://via.placeholder.com/200x250/666/fff?text=มังงะ4" alt="">
+                    <img src="https://via.placeholder.com/180x220/666/fff?text=Zero+4" alt="Zero 4">
                     <div class="card-content">
                         <span class="flag">Manhwa</span>
                         <h3>ชื่อเรื่อง 4</h3>
@@ -181,17 +191,58 @@
                 </div>
             </div>
         </section>
+
+        <section>
+            <h2>Manga ยอดฮิต 7 วัน</h2>
+            <div class="grid">
+                <!-- คล้ายด้านบน 4-6 การ์ด -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/180x220/777/fff?text=Top+1" alt="Top 1">
+                    <div class="card-content">
+                        <span class="flag">Manga</span>
+                        <h3>Top Manga 1</h3>
+                        <p>ยอดฮิต... | 20K วิว | 1 วัน</p>
+                    </div>
+                </div>
+                <!-- เพิ่มอีก 3-5 ตัว -->
+            </div>
+        </section>
+
+        <section>
+            <h2>Manhwa ยอดฮิต 7 วัน</h2>
+            <div class="grid">
+                <!-- คล้ายด้านบน -->
+            </div>
+        </section>
+
+        <section>
+            <h2>Manhua ยอดฮิต 7 วัน</h2>
+            <div class="grid">
+                <!-- คล้ายด้านบน -->
+            </div>
+        </section>
+
+        <section>
+            <h2>ที่คนอื่น ๆ ชื่นชอบ</h2>
+            <div class="grid">
+                <!-- คล้ายด้านบน -->
+            </div>
+        </section>
+
+        <section>
+            <h2>ตอนใหม่ล่าสุด</h2>
+            <div class="grid">
+                <!-- คล้ายด้านบน, เพิ่มป้าย "ตอนใหม่!" -->
+            </div>
+        </section>
     </main>
 
     <footer>
-        <p>© 2025 KuroToon Clone - อ่านฟรี ไม่มีโฆษณา รองรับมือถือ</p>
+        <p>&copy; 2025 ZeroManga. สงวนลิขสิทธิ์ทุกประการ. อ่านฟรี ไม่มีโฆษณา รองรับทุกอุปกรณ์</p>
     </footer>
 
     <script>
-        function toggle() {
-            const t = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.body.setAttribute('data-theme', t);
-        }
+        // ค้นหา
         document.querySelector('.search').addEventListener('input', function(e) {
             const q = e.target.value.toLowerCase();
             document.querySelectorAll('.card').forEach(c => {
